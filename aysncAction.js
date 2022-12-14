@@ -8,7 +8,7 @@ const axios = require('axios');
 const initialState = {
     loading: false,
     users: [],
-    error: ''
+
 }
 
 
@@ -34,7 +34,6 @@ const fetchUserSuccess = user => {
 const fetchUserFailure = () => {
     return {
         type: FETCH_USERS_FAILURE,
-        payload: error
     }
 
 }
@@ -53,7 +52,7 @@ const reducer = (state = initialState, action) => {
 
         case FETCH_USERS_SUCCESS:
             return {
-                loading: false,
+                loading: true,
                 user: action.payload,
                 error: ''
             }
@@ -61,7 +60,6 @@ const reducer = (state = initialState, action) => {
             return {
                 loading: false,
                 user: [],
-                error: action
             }
 
 
@@ -80,16 +78,21 @@ store.subscribe(() => console.log(store.getState()));
 const fetchUser = () => {
 
     return function (dispatch) {
-        dispatch(fetchUserRequest())
-        axios.get('http://jsonplaceholder.typicode.com/userss').then(res => {
 
+        console.log("befor");
+        dispatch(fetchUserRequest());
+        
 
-            const usersData = res.data.map(user => user.id);
+        axios.get('https://dummyjson.com/products/1')
+        .then(res => {
+
+            console.log(res);
+          const usersData = res.data.map(user => user.id);
             console.log(usersData);
             dispatch(fetchUserSuccess(usersData))
 
         }).catch((err) => {
-                dispatch(fetchUserFailure(err,"hello"))
+                dispatch(fetchUserFailure(err))
             })
             
         }
@@ -101,6 +104,3 @@ store.dispatch(fetchUser())
 
 
 
-
-git remote set-url origin https://github.com/AdhamOmari
-git remote set-url origin https://github.com/AdhamOmari/Redux_repo
