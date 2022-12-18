@@ -75,6 +75,10 @@ debugger;
 const store = createStore(reducer, applyMiddleware(thunkMedeal));
 store.subscribe(() => console.log(store.getState()));
 
+
+
+// its work  like the async function 
+
 const fetchUser = () => {
 
     return function (dispatch) {
@@ -83,7 +87,7 @@ const fetchUser = () => {
         dispatch(fetchUserRequest());
         
 
-        axios.get('https://dummyjson.com/products/1')
+        axios.get('http://dummyjson.com/products/1')
         .then(res => {
 
             console.log(res);
